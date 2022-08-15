@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="container">
+    <div class="row" style="margin: 50px 0">
+        <div class="col-sm-6">
+            <a href="/home/create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Tạo Thành Phố Mới</a>
+        </div>
+        <div class="col-sm-6">
+            <form method="post">
+                <input type="text" class="form-control" placeholder="Search" id="search" name="search" style="width: 50%;display: inline-block">
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i>Tìm Kiếm</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12" style="border: 1px solid black">
+            <p style="margin-top: 20px;">
+                <i class="fa-solid fa-list"></i>
+                Danh Sách Thành Phố
+            </p>
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tên Thành Phố</th>
+                    <th>Quốc Gia</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="c: ${cities}">
+                    <tr>
+                        <td th:text="${c.id}"></td>
+                        <td th:text="${c.cityName}"></td>
+                        <td th:text="${c.country.getNameCountry()}"></td>
+                        <td>
+                            <a th:href="@{/home/update/__${c.id}__}" class="btn btn-outline-secondary">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="javascript: void(0);" onclick="active(this.id)" data-th-id="${c.id}" class="btn btn-outline-danger">
+                                <i class="fa fa-ban" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a th:href="@{/home/info/__${c.id}__}" class="btn btn-outline-success">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    function active(id){
+        if (confirm("Do You Delete!") == true) {
+            location.href ='/home/delete/' + id;
+        }
+    }
+</script>
+</body>
+</html>

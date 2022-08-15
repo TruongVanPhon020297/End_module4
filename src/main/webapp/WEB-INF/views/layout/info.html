@@ -1,0 +1,93 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="container">
+    <div class="table-title mb-4">
+        <div class="row">
+            <div class="col-sm-9">
+                <h1>Thông Tin Thành Phố</h1>
+            </div>
+            <div class="col-sm-3" style="padding-top: 7px;padding-left: 106px;">
+                <a href="/customers" class="btn btn-outline-light">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    <span>Thông Tin Thành Phố</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9 align-content-center ">
+            <table class="table table-hover">
+                <tbody>
+                <th:block  th:object="${city}">
+                    <tr>
+                        <th>Tên:</th>
+                        <td th:text="${city.cityName}"></td>
+                    </tr>
+                    <tr>
+                        <th>Quốc gia:</th>
+                        <td th:text="${city.country.getNameCountry()} "></td>
+                    </tr>
+                    <tr>
+                        <th>Diện tích:</th>
+                        <td th:text="${city.area}"></td>
+                    </tr>
+                    <tr>
+                        <th>Dân số:</th>
+                        <td th:text="${city.population}"></td>
+                    </tr>
+                    <tr>
+                        <th>GDP:</th>
+                        <td th:text="${city.gdp}"></td>
+                    </tr>
+                    <tr>
+                        <th>Giới thiệu:</th>
+                        <td th:text="${city.description}"></td>
+                    </tr>
+                    <hr>
+                </th:block>
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+        <div class="mb-3 col-md-12">
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <th:block>
+                        <a th:href="@{/home/update/__${city.id}__}">
+                            <button class="btn btn-outline-secondary">
+                                <i class="fas fa-edit"></i>
+                                Update
+                            </button>
+                        </a>
+                        <a href="javascript: void(0);" onclick="active(this.id)" data-th-id="${city.id}">
+                            <button class="btn btn-outline-danger">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Delete
+                            </button>
+                        </a>
+                        <a th:href="@{/home/list}">
+                            <button class="btn btn-outline-secondary">
+                                Back
+                            </button>
+                        </a>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function active(id){
+        if (confirm("Do You Delete!") == true) {
+            location.href ='/home/delete/' + id;
+        }
+    }
+</script>
+</body>
+</html>
